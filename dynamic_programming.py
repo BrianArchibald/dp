@@ -1,5 +1,4 @@
 #  brute force for finding the fib number
-
 def fib(n):
     if n <= 2: return 1
     
@@ -8,7 +7,6 @@ def fib(n):
 print(fib(7))
 
 #  using dp and memoization
-
 def fib(n, memo={}):
     if n in memo: return memo[n]
     if n <= 2: return 1
@@ -17,3 +15,32 @@ def fib(n, memo={}):
     return memo[n]
 
 print(fib(60))
+
+#############################################################################
+
+#  grid traveler, 2D grid start top left, how many ways to get to bottom right
+
+#  brute force way
+def grid(m,n):
+    if m == 0 or n == 0: return 0
+    if m == 1 or n == 1: return 1
+    
+    return grid(m-1, n) + grid(m, n-1)
+    
+print(grid(3,3))    
+
+#  dp way
+def grid(m,n, memo={}):
+    key = '{}, {}'.format(m, n)
+    if key in memo: return memo[key]
+    
+    if m == 0 or n == 0: return 0
+    if m == 1 or n == 1: return 1
+    
+    memo[key] = grid(m-1, n, memo) + grid(m, n-1, memo)
+    return memo[key]
+    
+print(grid(10,10))  
+
+####################################################################################
+
