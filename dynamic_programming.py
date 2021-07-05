@@ -44,3 +44,16 @@ print(grid(10,10))
 
 ####################################################################################
 
+# brute force  , find out of you can hit the target from nums
+
+def can_sum(target, nums):
+    if target == 0: return True
+    if target < 0: return False
+    
+    for num in nums:
+        remainder = target - num
+        if can_sum(remainder, nums) == True: return True
+    
+    return False
+
+print(can_sum(7, [2, 3]))
