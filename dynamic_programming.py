@@ -57,3 +57,39 @@ def can_sum(target, nums):
     return False
 
 print(can_sum(7, [2, 3]))
+
+#  using dp and memoization, the key in memo is the target as the nums don't change, you can resuse them.
+def can_sum(target, nums, memo={}):
+    if target in memo: return memo[target]
+    if target == 0: return True
+    if target < 0: return False
+    
+    for num in nums:
+        remainder = target - num
+        if can_sum(remainder, nums, memo) == True:
+            memo[target] = True
+            return True
+            
+    memo[target] = False
+    return False
+    
+print(can_sum(300, [7, 14]))  
+
+#########################################################################################################
+# how sum, return any array that can equal sum of the target
+
+#  brute force method
+
+def how_sum(target_sum, numbers):
+    if target_sum == 0:
+        return []
+    for num in numbers:
+        remainder = target_sum - num
+        if remainder >= 0:
+            combination = how_sum(remainder, numbers)
+            if combination is not None:
+                combination = combination + [num]
+                return combination
+    return None
+    
+print(how_sum(7, [2, 3]))
