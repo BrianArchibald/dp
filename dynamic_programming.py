@@ -93,3 +93,74 @@ def how_sum(target_sum, numbers):
     return None
     
 print(how_sum(7, [2, 3]))
+
+# dp 
+def how_sum(target_sum, numbers):
+    memo = {}
+
+    def helper(target_sum, numbers):
+        if target_sum == 0:
+            return []
+        if target_sum in memo:
+            return memo[target_sum]
+        for num in numbers:
+            remainder = target_sum - num
+            if remainder >= 0:
+                combination = helper(remainder, numbers)
+                if combination is not None:
+                    memo[target_sum] = combination + [num]
+                    return memo[target_sum]
+        memo[target_sum] = None
+        return memo[target_sum]
+
+    return helper(target_sum, numbers)
+################################################################################################
+
+# best sum, same as above but with smallest array
+
+## Brute-Force
+def best_sum(target_sum, numbers):
+    if target_sum == 0:
+        return []
+    shortest_combination = None
+    for num in numbers:
+        remainder = target_sum - num
+        if remainder >= 0:
+            combination = best_sum(remainder, numbers)
+            if combination is not None:
+                combination = combination + [num]
+                if shortest_combination is None or len(combination) < len(
+                    shortest_combination
+                ):
+                    shortest_combination = combination
+    return shortest_combination
+
+
+## DP
+
+def best_sum(target_sum, numbers):
+    memo = {}
+
+    def helper(target_sum, numbers):
+        if target_sum == 0:
+            return []
+        if target_sum in memo:
+            return memo[target_sum]
+        shortest_combination = None
+        for num in numbers:
+            remainder = target_sum - num
+            if remainder >= 0:
+                combination = helper(remainder, numbers)
+                if combination is not None:
+                    combination = combination + [num]
+                    if shortest_combination is None or len(combination) < len(
+                        shortest_combination
+                    ):
+                        shortest_combination = combination
+        memo[target_sum] = shortest_combination
+        return memo[target_sum]
+
+    return helper(target_sum, numbers)
+
+######################################################################################
+
