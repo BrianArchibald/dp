@@ -178,3 +178,26 @@ def canConstruct(target, words):
     
 print(canConstruct('red', ['re', 'd']))
 print(canConstruct('reds', ['re', 'd']))
+
+#  DP  memoization
+
+def canConstruct(target, words, memo={}): 
+    if target == '': return True
+    if target in memo: return memo[target]
+
+    for word in words:
+        if target.startswith(word):
+            remainder = target[len(word):]
+            
+            if canConstruct(remainder, words, memo):
+                memo[target] = True
+                return True
+            
+    memo[target] = False
+    return False
+    
+    
+    
+print(canConstruct('red', ['re', 'd']))
+print(canConstruct('reds', ['re', 'd']))
+print(canConstruct('eeeeeeeeeeeeeeeeeeeeeeef', ['e', 'e', 'e', 'e', 'e', 'e', 'f']))
