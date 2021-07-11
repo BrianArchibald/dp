@@ -164,3 +164,17 @@ def best_sum(target_sum, numbers):
 
 ######################################################################################
 
+# try to see if can make target word from word bank
+
+def canConstruct(target, words): 
+    if target == '': return True
+
+    for word in words:
+        if target.startswith(word):
+            remainder = target[len(word):]
+            if canConstruct(remainder, words): return True
+
+    return False
+    
+print(canConstruct('red', ['re', 'd']))
+print(canConstruct('reds', ['re', 'd']))
