@@ -201,3 +201,20 @@ def canConstruct(target, words, memo={}):
 print(canConstruct('red', ['re', 'd']))
 print(canConstruct('reds', ['re', 'd']))
 print(canConstruct('eeeeeeeeeeeeeeeeeeeeeeef', ['e', 'e', 'e', 'e', 'e', 'e', 'f']))
+
+#################################################################################
+
+def count_construct(target, word_bank):
+    if target == '': return 1
+    total = 0
+    
+    for word in word_bank:
+        if target.startswith(word):
+            remainder = target[len(word):]
+            num_ways = count_construct(remainder, word_bank)
+            total += num_ways
+        
+    return total
+    
+print(count_construct('red', ['re', 'd']))
+print(count_construct('reds', ['re', 'd']))
