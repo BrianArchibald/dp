@@ -218,3 +218,22 @@ def count_construct(target, word_bank):
     
 print(count_construct('red', ['re', 'd']))
 print(count_construct('reds', ['re', 'd']))
+
+## no with DP , memoization
+
+def count_construct(target, word_bank, memo={}):
+    if target in memo: return memo[target]
+    if target == '': return 1
+    total = 0
+    
+    for word in word_bank:
+        if target.startswith(word):
+            remainder = target[len(word):]
+            num_ways = count_construct(remainder, word_bank, memo)
+            total += num_ways
+        
+    memo[target] = total
+    return total
+    
+print(count_construct('red', ['re', 'd']))
+print(count_construct('reds', ['re', 'd']))
